@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { Config } from './Config';
+import { Config } from '../util/Config';
 
 /**
  * Interface for the authentication response from the login URL
@@ -35,18 +35,13 @@ export class AuthManager {
   public async authenticate(): Promise<string> {
     // Check if we have a valid cached token
     if (this.isTokenValid()) {
-      console.debug('Using cached access token');
       return this.accessToken!;
     }
 
-    console.debug('Authenticating with API...');
-    
     try {
       const token = await this.requestNewToken();
       this.accessToken = token;
       this.tokenExpiry = Date.now() + (3600 * 1000); // Token expires in 1 hour (3600 seconds)
-      
-      console.debug('Successfully obtained new access token');
       return token;
     } catch (error) {
       console.error('Authentication failed:', error);
