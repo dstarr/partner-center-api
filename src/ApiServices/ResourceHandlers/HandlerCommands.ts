@@ -74,7 +74,7 @@ export class Microsoft365IntegrationCommand implements IResourceCommand {
 export class ProductCommand implements IResourceCommand {
     schema: string = SCHEMAS.PRODUCT;
     execute(resource: any): void {
-        console.log(resource.alias);
+        console.log("PRODUCT:", resource.alias);
     }
 }
 

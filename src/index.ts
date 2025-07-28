@@ -3,16 +3,6 @@ import { OffersManager } from './ApiServices/OffersManager';
 import { IResourceCommand } from './ApiServices/ResourceHandlers/IResourceCommand';
 import { ResourceManager } from './ApiServices/ResourceHandlers/ResourceManager';
 
-// console.debug('API URL:', Config.PARTNER_CENTER_API_URL);
-// console.debug('Client ID:', Config.CLIENT_ID);
-// console.debug('Environment:', Config.NODE_ENV);
-// console.debug('Login URL:', Config.LOGIN_URL);
-// console.debug('Scope:', Config.SCOPE);
-// console.debug('Tenant ID:', Config.TENANT_ID);
-
-let authToken: string;
-
-
 // Example usage of the AuthManager class
 async function getOffers() {
     try {
@@ -42,13 +32,13 @@ async function getOffers() {
 
 async function authentivateAndGetToken() {
     const authManager = new AuthManager();
-    authToken = await authManager.authenticate();
+    // authToken = await authManager.authenticate();
 
 }
 
 // Run the main function
-authentivateAndGetToken()
+getOffers()
     .then(() => {
-        getOffers();
+        console.log('Done');
     });
 
