@@ -1,4 +1,3 @@
-import { AuthManager } from './ApiServices/AuthManager';
 import { OffersManager } from './ApiServices/OffersManager';
 import { IResourceCommand } from './ApiServices/ResourceHandlers/IResourceCommand';
 import { ResourceManager } from './ApiServices/ResourceHandlers/ResourceManager';
@@ -28,12 +27,6 @@ async function getOffers() {
     } catch (error) {
         console.error('[getOffers] Error:', error);
     }
-}
-
-async function authentivateAndGetToken() {
-    const authManager = new AuthManager();
-    // authToken = await authManager.authenticate();
-
 }
 
 // Run the main function
