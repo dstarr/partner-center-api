@@ -85,7 +85,7 @@ export class OffersManager {
     }
   }
 
-  public async getResourcesByOfferId(offerDurableId: string): Promise<any> {
+  public async getOfferDetails(offerDurableId: string): Promise<any> {
     try {
       const accessToken = await this.authManager.authenticate();
       const headers = {
@@ -98,8 +98,6 @@ export class OffersManager {
         `${Config.PARTNER_CENTER_API_URL}/resource-tree/${offerDurableId}?$version=2022-03-01-preview5`,
         { headers }
       );
-
-      
 
       return response.data;
 

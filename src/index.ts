@@ -1,6 +1,7 @@
-import { Config } from './util/Config';
 import { AuthManager } from './ApiServices/AuthManager';
 import { OffersManager } from './ApiServices/OffersManager';
+import { IResourceCommand } from './ApiServices/ResourceHandlers/IResourceCommand';
+import { ResourceManager } from './ApiServices/ResourceHandlers/ResourceManager';
 
 // console.debug('API URL:', Config.PARTNER_CENTER_API_URL);
 // console.debug('Client ID:', Config.CLIENT_ID);
@@ -17,22 +18,23 @@ async function getOffers() {
     try {
         const offersManager = new OffersManager();
         const offers = await offersManager.getAllOffers();
+        const resourceManager = new ResourceManager();
 
         // Iterate over the SaaS offers and get the value of each offer
         for (const offer of offers) {
             // NOTE: Retrieving offerData for Managed Application offers throws error
             // sticking to SaaS offers to avoid errors
             if(offer.type == 'softwareAsAService'){
-                console.log('ALIAS', offer.alias);
-                const offerData = await offersManager.getResourcesByOfferId(offer.id);
+                console.log('--------------------------------');
+                const offerData = await offersManager.getOfferDetails(offer.id);
                 for (const resource of offerData.resources) {
-                    if(resource['$schema'] == 'https://schema.mp.microsoft.com/schema/plan/2022-03-01-preview3'){
-                        console.log("\tPLAN:",resource.alias);
+                    const resourceHandler: IResourceCommand = resourceManager.getResourceHandler(resource['$schema']);
+                    if (resourceHandler) {
+                        resourceHandler.execute(resource);
                     }
                 }
             }
         }
-
     } catch (error) {
         console.error('[getOffers] Error:', error);
     }
