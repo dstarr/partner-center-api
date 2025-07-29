@@ -127,7 +127,6 @@ export class PriceAvailabilityCustomMeterCommand implements IResourceCommand {
     schema: string = SCHEMAS.PRICE_AVAILABILITY_CUSTOM_METER;
     execute(resource: any): void {
         console.log("CUSTOM METERS:");
-        // console.log(`\t${JSON.stringify(resource)}`);
         Object.entries(resource.customMeters).forEach(([key, value]) => {
             const meter = value as ICustomMeter;
             console.log(`\t${key}: ${meter.displayName} - ${meter.unitOfMeasure}`);
